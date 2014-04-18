@@ -142,7 +142,7 @@ func Dec(key string) {
 	}
 }
 
-func expvarHandler(w http.ResponseWriter, r *http.Request) {
+func ExpvarHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 	fmt.Fprintf(w, "{\n")
