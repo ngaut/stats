@@ -173,5 +173,5 @@ func ExpvarHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func init() {
-	http.HandleFunc("/debug/stats", expvarHandler)
+	http.HandleFunc("/debug/stats", ExpvarHandler)
 }
