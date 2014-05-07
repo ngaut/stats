@@ -10,8 +10,11 @@ import (
 	"bytes"
 	"container/list"
 	"fmt"
+	"html/template"
 	"net/http"
+	"os"
 	"sync"
+	"time"
 )
 
 type KeyValue struct {
@@ -172,6 +175,37 @@ func ExpvarHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "}\n")
 }
 
+// This file contains the status web page export for tabletserver
+
+type DebugStatus struct {
+	BinaryName string
+	State      string
+	Hostname   string
+	StartTime  time.Time
+	Key        string
+}
+
+func ShowStatus(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	key := r.FormValue("key")
+	tmpl, err := template.New("status.tpl").ParseFiles("status.tpl")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	hn, _ := os.Hostname()
+
+	err = tmpl.Execute(w, &DebugStatus{
+		BinaryName: "scheduler", State: "runing", Hostname: hn, StartTime: time.Now(), Key: key,
+	})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
 func init() {
+	http.HandleFunc("/debug/charts", ShowStatus)
 	http.HandleFunc("/debug/stats", ExpvarHandler)
 }
