@@ -37,7 +37,7 @@ View <a href=/debug/vars>variables</a>,
 </div>
 
 State: {{.State}}<br>
-<div id="qps_chart">QPS: {{.Key}}</div>
+<div id="state_chart">{{.Key}}</div>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
  
@@ -51,7 +51,7 @@ function minutesAgo(d, i) {
 }
  
 function drawQPSChart() {
-  var div = $('#qps_chart').height(500).width(900).unwrap()[0]
+  var div = $('#state_chart').height(500).width(900).unwrap()[0]
   var chart = new google.visualization.LineChart(div);
  
   var options = {
@@ -87,4 +87,6 @@ function drawQPSChart() {
 google.setOnLoadCallback(drawQPSChart);
 </script>
 </html> 
+
+
 
