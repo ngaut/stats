@@ -55,16 +55,18 @@ function drawQPSChart() {
   var chart = new google.visualization.LineChart(div);
  
   var options = {
-    title: "QPS",
+    title: '{{.Key}}',
     focusTarget: 'category',
     vAxis: {
       viewWindow: {min: 0},
     }
   };
+
+  var start = new Date().getTime() / 1000;
  
  
   var redraw = function() {
-    var sec = new Date().getTime() / 1000;
+    var sec = new Date().getTime() / 1000 - start;
     $.getJSON("/debug/stats", function(input_data) {
       // console.log(input_data);
       var l = [];
