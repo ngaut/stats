@@ -175,7 +175,6 @@ func ExpvarHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "}\n")
 }
 
-// This file contains the status web page export for tabletserver
 
 type DebugStatus struct {
 	BinaryName string
